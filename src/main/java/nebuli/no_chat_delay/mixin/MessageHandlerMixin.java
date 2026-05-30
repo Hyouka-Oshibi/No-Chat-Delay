@@ -1,26 +1,29 @@
 package nebuli.no_chat_delay.mixin;
 
-import net.minecraft.client.network.message.MessageHandler;
+import net.minecraft.client.multiplayer.chat.ChatListener;
+import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.PlayerChatMessage;
+import com.mojang.authlib.GameProfile;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(MessageHandler.class)
+@Mixin(ChatListener.class)
 public abstract class MessageHandlerMixin {
 
     @Shadow
-    public abstract void processDelayedMessages();
+    public abstract void flushQueue();
 
-    @Inject(method = "processChatMessageInternal", at = @At("TAIL"))
-    private void forceInstantPlayerChat(CallbackInfoReturnable<Boolean> cir) {
-        this.processDelayedMessages();
+    @Inject(method = "handlePlayerChatMessage", at = @At("TAIL"))
+    private void forceInstantPlayerChat(PlayerChatMessage message, GameProfile profile, ChatType.Bound chatType, CallbackInfo ci) {
+        this.flushQueue();
     }
 
-    @Inject(method = "process", at = @At("TAIL"))
-    private void forceInstantSystemChat(CallbackInfo ci) {
-        this.processDelayedMessages();
+    @Inject(method = "handleSystemMessage", at = @At("TAIL"))
+    private void forceInstantSystemChat(Component message, boolean overlay, CallbackInfo ci) {
+        this.flushQueue();
     }
 }
