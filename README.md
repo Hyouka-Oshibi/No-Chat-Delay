@@ -13,3 +13,18 @@ In vanilla Minecraft, incoming chat messages are placed into a queue and tied to
 * **High Compatibility:** Safely forces the vanilla processing queue rather than skipping it. It should not break chat filters, secure chat signatures, or chat loggers.
 * **100% Client-Side:** Safe to use on any vanilla or modded multiplayer server.
 * **Zero Dependencies:** Not even Fabric API
+
+## Installation
+1. Download the latest `.jar` from the [Releases](https://modrinth.com/project/no-chat-delay) page (or build it from source).
+2. Drop the `.jar` file into your `.minecraft/mods` folder.
+3. Launch the game
+
+## Compile from Source
+If you want to build the mod yourself:
+1. Clone this repository.
+2. Open a terminal in the project folder.
+3. Run `./gradlew build`.
+4. Grab the compiled mod from `build/libs/`.
+
+## Mod in action
+![mod_working.gif](media/mod_working.gif)
