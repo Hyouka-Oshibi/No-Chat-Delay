@@ -15,7 +15,7 @@
 	"icon": "assets/no-chat-delay/icon.png",
 	"environment": "client",
 	"entrypoints": {
-		"main": [
+		"client": [
 			"nebuli.no_chat_delay.NoChatDelay"
 		]
 	},
@@ -23,9 +23,11 @@
 		"no-chat-delay.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.18.4",
-		"minecraft": "~26.1.2",
-		"java": ">=25",
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25"
+	},
+	"suggests": {
 		"fabric-api": "*"
 	}
 }

@@ -22,6 +22,11 @@ public abstract class MessageHandlerMixin {
         this.flushQueue();
     }
 
+    @Inject(method = "handleDisguisedChatMessage", at = @At("TAIL"))
+    private void forceInstantDisguisedChat(Component message, ChatType.Bound chatType, CallbackInfo ci) {
+        this.flushQueue();
+    }
+
     @Inject(method = "handleSystemMessage", at = @At("TAIL"))
     private void forceInstantSystemChat(Component message, boolean overlay, CallbackInfo ci) {
         this.flushQueue();
